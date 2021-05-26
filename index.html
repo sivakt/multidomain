@@ -1,5 +1,8 @@
 <html>
 <script type="text/javascript">
+    
+    window.addEventListener("message", messageHandler, false);
+        
     function saveToken() {
         var iframe = document.getElementById('app-iframe');
         var tokenValue = document.getElementById('auth-token').value;
@@ -15,14 +18,14 @@
         iframe.contentWindow.postMessage({
             action: 'get',
             key: 'keyForData'
-        });
-        window.addEventListener("message", messageHandler, false);
-        function messageHandler(event) {
+        }, '*');
+    }
+    
+    function messageHandler(event) {
             const { action, key, value } = event.data;
             if (action == 'returnData') {
                 alert('Token key - ' + key + 'and value -' + value);
             }
-        }
     }
 </script>
 
