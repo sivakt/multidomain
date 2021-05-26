@@ -1,7 +1,43 @@
 <html>
-    <body>
-        <div>
-            Test
-        </div>
-    </body>
+<script type="text/javascript">
+    function saveToken() {
+        var iframe = iframe = document.getElementById('app-iframe');
+        var tokenValue = document.getElementById('auth-token').value;
+        iframe.contentWindow.postMessage({
+            action: 'save',
+            key: 'keyForData',
+            value: tokenValue
+        });
+    }
+
+    function getToken() {
+        var iframe = iframe = document.getElementById('app-iframe')
+        iframe.contentWindow.postMessage({
+            action: 'get',
+            key: 'keyForData'
+        });
+        window.addEventListener("message", messageHandler, false);
+        function messageHandler(event) {
+            const { action, key, value } = event.data;
+            if (action == 'returnData') {
+                alert('Token key - ' + key + 'and value -' + value);
+            }
+        }
+    }
+</script>
+
+<body>
+    <div>
+        Testing Post message
+    </div>
+    <div>
+        <input id="auth-token" type="text" />
+        <button id="save-token" onclick="saveToken()">Save Token</button>
+    </div>
+    <div>
+        <button id="get-token" onclick="getToken()">Get Token</button>
+    </div>
+    <iframe id="app-iframe" src="https://axleusa.azurewebsites.net/" style="display: none;" />
+</body>
+
 </html>
