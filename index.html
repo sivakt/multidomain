@@ -1,7 +1,7 @@
 <html>
 <script type="text/javascript">
     function saveToken() {
-        var iframe = iframe = document.getElementById('app-iframe');
+        var iframe = document.getElementById('app-iframe');
         var tokenValue = document.getElementById('auth-token').value;
         iframe.contentWindow.postMessage({
             action: 'save',
